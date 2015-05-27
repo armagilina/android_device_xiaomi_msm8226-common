@@ -139,6 +139,7 @@ PRODUCT_COPY_FILES += \
 
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
+    external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/etc/permissions/com.dsi.ant.antradio_library.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
@@ -149,7 +150,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
@@ -157,94 +159,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.software.print.xml:system/etc/permissions/android.software.print.xml \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml
 
-# RIL
-PRODUCT_PROPERTY_OVERRIDES += \
-    telephony.lteOnCdmaDevice=0 \
-    ril.subscription.types=RUIM \
-    persist.radio.apm_sim_not_pwdn=0 \
-    ro.telephony.call_ring.multiple=0
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    drm.service.enabled=true
-
-# Wi-Fi
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    wifi.supplicant_scan_interval=15 \
-    wlan.driver.ath=0
-
-# QC Perf
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.extension_library=libqti-perfd-client.so
-    com.qc.hardware=true \
-    ro.qc.sdk.sensors.gestures=false \
-    ro.qc.sensors.wl_dis=true
-
-# Audio Configuration
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qc.sdk.audio.ssr=false \
-    persist.audio.fluence.mode=endfire \
-    persist.audio.vr.enable=false \
-    persist.audio.handset.mic=digital \
-    persist.audio.lowlatency.rec=false \
-    ro.qc.sdk.audio.fluencetype=none \
-    af.resampler.quality=255 \
-    lpa.use-stagefright=true \
-    qcom.hw.aac.encoder=true \
-    lpa.decode=false \
-    tunnel.decode=false \
-    tunnel.audiovideo.decode=false \
-    mm.enable.qcom_parser=33395 \
-    media.aac_51_output_enabled=true
-
-# BT
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.qualcomm.bt.hci_transport=smd \
-    ro.bluetooth.request.master=true \
-    ro.bluetooth.remote.autoconnect=true \
-    bluetooth.a2dp.sink.enabled=false
-
-# transmitter isn't supported
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.fm.transmitter=false
-
-# netmgrd
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.use_data_netmgrd=true \
-    persist.data.netmgrd.qos.enable=true \
-    persist.rmnet.mux=disabled
-
-# OpenGL
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=196608 \
-    debug.egl.recordable.rgba8888=1
-
-# QCOM Display
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.hw=1 \
-    debug.egl.hw=1 \
-    debug.composition.type=dyn \
-    persist.hwc.mdpcomp.enable=true \
-    debug.mdpcomp.logs=0 \
-    ro.sf.lcd_density=320
-
-# Power Profile
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    persist.sys.aries.power_profile=middle
-
 # USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp \
+    persist.sys.usb.config=mtp,adb \
     ro.vold.umsdirtyratio=50 \
     persist.sys.isUsbOtgEnabled=1
-
-# Gps
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.gps.qmienabled=true
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -333,8 +255,8 @@ PRODUCT_PACKAGES += \
     dhcpcd.conf \
     wcnss-service
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    media.stagefright.use-awesome=true
+#PRODUCT_PROPERTY_OVERRIDES += \
+#    media.stagefright.use-awesome=true
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
